@@ -8,9 +8,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, AveragePooling2D, Input
 from sklearn.model_selection import GridSearchCV
 from scikeras.wrappers import KerasClassifier
+import joblib
 
 data_dir = "data"
-
 
 #Loading the images and using labeling classes with folder names
 #
@@ -124,3 +124,8 @@ best_model = grid_results.best_estimator_.model_
 loss, accuracy = best_model.evaluate(X_test, y_test_oh)
 print(f'Test accuracy on the best model: {accuracy}')
 print(best_model.summary())
+
+#saving best model for use
+best_model.save("best_model.h5")
+
+joblib.dump(label_enc, "label_encoder.pkl")
